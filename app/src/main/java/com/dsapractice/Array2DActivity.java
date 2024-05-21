@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Array2DActivity extends AppCompatActivity {
@@ -17,13 +18,24 @@ public class Array2DActivity extends AppCompatActivity {
         setContentView(R.layout.activity_array2_dactivity);
 
         //Basics of 2d array to store values.
-        storeValueIn2D();
+      /*  storeValueIn2D();
 
         matrixMultiplication();
-        waveTraversal();
-        spiralTraversal();
-        exitElement();
-        searchIn2DMatrix(40);
+        waveTraversal();*/
+        /*int matrix[][] = {{1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, 16}};*/
+
+
+        int matrix[][] = {{6, 6, 2, 28, 2},
+                          {12, 26, 3 ,28 ,7},
+                          {22, 25, 3 ,4 ,23},
+        };
+        ArrayList<Integer> listOfElementsTraversed = spirallyTraverse(matrix, 3, 5);
+        Log.d(TAG, "Spiral traversal in matrix: " + listOfElementsTraversed);
+        /*exitElement();
+        searchIn2DMatrix(40);*/
     }
 
     private void searchIn2DMatrix(int NumToFind) {
@@ -37,9 +49,9 @@ public class Array2DActivity extends AppCompatActivity {
 
         int i = 0, j = arr[0].length - 1;
 
-        while (i < arr.length && j>=0) {
+        while (i < arr.length && j >= 0) {
             if (arr[i][j] == NumToFind) {
-                Log.d(TAG, "searchIn2DMatrix: " + i + " " + j );
+                Log.d(TAG, "searchIn2DMatrix: " + i + " " + j);
                 return;
             } else if (arr[i][j] < NumToFind) {
                 i++;
@@ -48,7 +60,7 @@ public class Array2DActivity extends AppCompatActivity {
             }
         }
 
-        Log.d(TAG, "searchIn2DMatrix: " + i + " " + j );
+        Log.d(TAG, "searchIn2DMatrix: " + i + " " + j);
 
 
     }
@@ -101,9 +113,48 @@ public class Array2DActivity extends AppCompatActivity {
 
     }
 
-    private void spiralTraversal() {
-        int a[][] = {{11, 12, 13, 14}, {21, 22, 23, 24}, {31, 32, 33, 34}};
 
+    private ArrayList<Integer> spirallyTraverse(int matrix[][], int r, int c) {
+        //left top corner is the point with minrow, min column, rightbottom corner is max row, max colum
+        // for each side we run a loop, and adjust these 4 variable to avoid repeating elements.
+        // code here
+        ArrayList<Integer> resultList = new ArrayList<>();
+        int totalElements = r * c;
+        int count = 0;
+        int minRow = 0, minCol = 0, maxRow = r - 1, maxCol = c - 1;
+
+        while (count < totalElements) {
+
+            //Top Wall
+            for (int i = minRow, j = minCol; j <= maxCol && count < totalElements; j++) {
+                resultList.add(matrix[i][j]);
+                count++;
+            }
+            minRow++;
+
+            //Right Wall
+            for (int i = minRow, j = maxCol; i <= maxRow && count < totalElements; i++) {
+                resultList.add(matrix[i][j]);
+                count++;
+            }
+            maxCol--;
+
+            //Bottom Wall
+            for (int i = maxRow, j = maxCol; j >= minCol && count < totalElements; j--) {
+                resultList.add(matrix[i][j]);
+                count++;
+            }
+            maxRow--;
+
+            //Left Wall
+            for (int i = maxRow, j = minCol; i >= minRow && count < totalElements; i--) {
+                resultList.add(matrix[i][j]);
+                count++;
+            }
+            minCol++;
+        }
+
+        return resultList;
 
     }
 

@@ -20,15 +20,15 @@ public class ArrayActivity extends AppCompatActivity {
 
         reverseWord("Geeks");
 
-        //Here k is the no. of elements  we want to rotate, it range is -infinity to +infinity
+        //Here k is the no. of elements  we want to rotate, it's range is -infinity to +infinity
         // negative k means to rotate array in clockwise direction and positive means for anti-clockwise.
         int k = -8;
        /* digitFrequency();
         spanOfArray();*/
         //barChart(arr);
         Log.d(TAG, "sumOfArray: " + sumOfArray());
-       /* reverseArray(arr, 0, arr.length - 1);
-        rotateArrayByOne();*/
+        reverseArray(arr, 0, arr.length - 1);
+        rotateArrayByOne();
 
         rotateArrayClkwiseOrAntiClkWise(arr, k);
         //meaning if at 0th index, value is 3 , then in inverse array, at 3th index, the value should be 0
@@ -237,7 +237,7 @@ public class ArrayActivity extends AppCompatActivity {
          *  1.) Take modulus of k and arr length i.e. k%arr.length , then we will divide array into 2 parts:
          *   a.) From 0 index to array length-k-1 , this portion is first half
          *   b.) From  array length-k to array length-1
-         * 2.) Reverse first and second portion
+         * 2.) Reverse first and second portion(note it is reverse not rotate)
          * 3.) Reverse complete array(first + second)
          * 4.) Just after modulus --> Check if k is negative , if yes, then add arr.length to k.
          *
@@ -320,9 +320,19 @@ public class ArrayActivity extends AppCompatActivity {
 
         int totalNumOfSubsets = (int) Math.pow(2, arr.length);
         for (int i = 0; i < totalNumOfSubsets; i++) {
-            // Here we will take i value and convert it to binary to get 0's and 1's
+            // Here we will take i value and convert it to binary, use 0's and 1's to know if we
+            //want to print element or not, for 1 print element, for 0 don't print.
             //this loop will run that many times which we want the bits in one subset , here it is
             // 3 i.e - - -, equal to size of array. We will run the loop from end to maintain the print order.
+
+            //To find binary of any number, we divide it by 2, and check remainder. Example
+            // 2|_6__
+            // 2|_3__  --> 0 -->this is remainder
+            // 2|_1__  --> 1 -->this is remainder
+            // 2|_0__  --> 1 -->this is remainder
+            // Print from bottom to top i.e 110 --> which is binary of 6, hence we start loop from
+            // end instead od start.
+
             String mySubset = "";
             int temp = i;
 
