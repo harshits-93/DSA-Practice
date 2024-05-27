@@ -28,7 +28,7 @@ public class Array2DActivity extends AppCompatActivity {
                 {13, 14, 15, 16}};*/
 
 
-        int matrix[][] = {{6, 6, 2, 28, 2},
+       /* int matrix[][] = {{6, 6, 2, 28, 2},
                 {12, 26, 3, 28, 7},
                 {22, 25, 3, 4, 23},
         };
@@ -55,12 +55,135 @@ public class Array2DActivity extends AppCompatActivity {
                 {7, 8, 9}};
 
         int n = 3;
-       // rotateBy90ClkWise(matrix1, n);
+        // rotateBy90ClkWise(matrix1, n);
         rotateBy90AntiClkWise(matrix1, n);
-        printMatrix(n, matrix);
+        printMatrix(n, matrix);*/
 
-        /*
+
+        // row with minimum number of 1's
+/*        int[][] a = {
+                {0,0,1,0},
+                {0,0, 1,1},
+                {0, 1, 1, 0},
+                {0,0,0,0}
+        };
+
+        int minRowIndex = minRow(4, 4, a);
+        Log.d(TAG, "minRowIndex: "+ minRowIndex);
+
+        int maxRowIndex = maxOnes(a,4, 4);
+        Log.d(TAG, "maxRowIndex: "+ maxRowIndex);
+
         searchIn2DMatrix(40);*/
+
+
+        int[][] matrix2 = {{1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}};
+        ArrayList<Integer> list = downwardDiagonal(3, matrix2);
+        Log.d(TAG, "downwardDiagonal : " + list);
+    }
+
+    //Give a N * N square matrix A, return all the elements of its anti-diagonals from top to bottom.
+    static ArrayList<Integer> downwardDiagonal(int N, int A[][]) {
+        /**
+         * Input
+         [[1, 2, 3],
+         [4, 5, 6],
+         [7, 8, 9]]
+
+         Output:
+         1 2 4 3 5 7 6 8 9
+         */
+
+        // code here
+
+        ArrayList<Integer> resultList = new ArrayList<>();
+        int i = 0, j = 0;
+        //row and column are same, i.e. N, if n,m are given different use it accordingly.
+
+
+        while (j < N) {
+            int row = i;
+            int col = j;
+
+            while (col >= 0 && row < N) {
+                resultList.add(A[row][col]);
+                row++;
+                col--;
+            }
+            j++;
+        }
+
+        j--;
+        i = 1;
+        while (i < N) {
+            int row = i;
+            int col = j;
+
+            while (col >= 0 && row < N) {
+                resultList.add(A[row][col]);
+                row++;
+                col--;
+            }
+            i++;
+        }
+
+        return resultList;
+    }
+
+    int minRow(int n, int m, int a[][]) {
+        /*{1, 1, 1, 1},
+        {1, 1, 0, 0},
+        {0, 0, 1, 1},
+        {1, 1, 1, 1}*/
+        // code here
+
+        int currentCount = 0;
+        int minCount = 0;
+        int minRow = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (a[i][j] == 1) {
+                    currentCount++;
+                }
+            }
+
+            if (currentCount < minCount || i == 0) {
+                minCount = currentCount;
+                minRow = i;
+            }
+            currentCount = 0;
+        }
+
+        return minRow + 1;
+
+    }
+
+
+    public int maxOnes(int Mat[][], int N, int M) {
+        // your code here
+
+        int currentCount = 0;
+        int maxCount = 0;
+        int maxRow = 0;
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if (Mat[i][j] == 1) {
+                    currentCount++;
+                }
+            }
+
+            if (currentCount > maxCount /*|| i==0*/) {
+                maxCount = currentCount;
+                maxRow = i;
+            }
+            currentCount = 0;
+        }
+
+        return maxRow;
     }
 
     private static void printMatrix(int n, int[][] matrix) {
@@ -127,6 +250,7 @@ public class Array2DActivity extends AppCompatActivity {
 
 
     }
+
     private void rotateBy90AntiClkWise(int matrix[][], int n) {
         // Since it is n x n matrix
         // n = matrix.length,
@@ -187,7 +311,7 @@ public class Array2DActivity extends AppCompatActivity {
 
         //Here we will start from top right, why ? Because if our value is less than that
         // we can move in left direction which represent lesser number than this as it is
-        // sorted array, say if the number we finding is greater than top right, then
+        // sorted array, say if the number we are finding is greater than top right, then
         // we will move towards bottom direction as going downwards means greater values are there.
 
         int i = 0, j = arr[0].length - 1;
