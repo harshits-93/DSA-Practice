@@ -25,6 +25,9 @@ public class RecursionActivity extends AppCompatActivity {
         int i1 = calculatePower(4, 3);
         Log.d(TAG, "power : " + i1);
 
+        long l = calculatePowerLogarithmic(12, 21);
+        Log.d(TAG, "power logarithmic: " + l);
+
         int n = 2;
         printZigZag(n);
         int[] arr = {10, 20, 30, 40, 50};
@@ -44,6 +47,46 @@ public class RecursionActivity extends AppCompatActivity {
         int[] allIndices = findAllIndices(arr, 0, 30, 0);
         Log.d(TAG, "allIndices arr: " + Arrays.toString(allIndices));
 
+    }
+
+    private long calculatePowerLogarithmic(int x, int n) {
+
+        // This approach is much more efficient than previous approach of calculating power, previous
+        //approach time complexity is n, whereas this this has logn.
+
+        if (n == 0) {
+            return 1;
+        }
+
+        long xrpn = calculatePowerLogarithmic(x, n / 2);
+        long xn = xrpn * xrpn;
+
+        //if n is odd, i.e. power is odd, then we need to multiply with x one more time.
+        if (n % 2 == 1) {
+            xn = xn * x;
+        }
+
+        return xn;
+
+    }
+
+    private long power(int N, int R) {
+        https:
+//www.geeksforgeeks.org/problems/power-of-numbers-1587115620/1?page=1&category=Recursion&sortBy=submissions
+
+        if (R == 0) {
+            return 1;
+        }
+
+        long xrpn = calculatePowerLogarithmic(N, R / 2);
+        long xn = (xrpn * xrpn) % 1000000007;
+
+        //if n is odd, i.e. power is odd, then we need to multiply with x one more time.
+        if (R % 2 == 1) {
+            xn = (xn * N) % 1000000007;
+        }
+
+        return xn;
     }
 
 
@@ -129,12 +172,29 @@ public class RecursionActivity extends AppCompatActivity {
         displayArray(arr, idx + 1);
     }
 
+
+
+
     private void printZigZag(int n) {
 
         // This question is made to understand the internal flow of recursion and stack state at
         // each step,  we can easily analyse it when n is smaller, but for bigger values of n it is
-        // time consuming to draw stack and check flow, for this we have euler's path which exactly
-        //tells/depicts the required steps and stack state at each step.s
+        // time consuming to draw stack using dry run and check flow, for this we have euler's path
+        // which exactly tells/depicts the required steps and stack content  at each step.
+        /**For reference how eular path is drawn and how it works check this video from  20:05
+         * https://www.youtube.com/watch?v=R7qja_gZrvI&list=PL-Jc9J83PIiFxaBahjslhBD1LiJAV7nKs&index=10
+         *
+         * When only one recursion call is there, we have 2 regions, Ist region is all the code above
+         * call, and 2nd is all the code below call. But when 2 recursions calls are there it divide
+         * the area into 3 regions namely pre, in and post.
+         * These 2 call are call Left call(Ist recursion call) and right call(2nd recursion call)
+         * pre region is when no left call or right call executed
+         * in region means left call already executed but right call is made yet, in b/w code is
+         * executed for in area
+         * post region executes when both left and right call executed
+         *
+         * In eular path these call are represent by lines.
+         */
         if (n == 0) {
             return;
         }
@@ -164,9 +224,9 @@ public class RecursionActivity extends AppCompatActivity {
 
         /*
          * Remember code above recursive call will run from bottom to top in stack
-         * meaning all lines above recursive call will execute first and then call made.
+         * meaning all lines above recursive call will execute first and then new call made.
          * But  all lines below recursive call will run from top to bottom in stack,
-         * meaning all recursive call will be done and once the exit condition hit. then from
+         * meaning all recursive call will be done and once the exit condition hit, then from
          * there moving backwards the lines are executed.
          * */
         Log.d(TAG, "" + n);
