@@ -1,12 +1,15 @@
 package com.dsapractice;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class ArrayActivity extends AppCompatActivity {
 
@@ -59,6 +62,81 @@ public class ArrayActivity extends AppCompatActivity {
         int i = missingNumber(a3, 5);
         Log.d(TAG, "missing number  : " + i);*/
 
+        int n = 5, m = 3;
+        int a[] = {89, 2, 2,75, 11, 23};
+        int b[] = {89, 2, 2,4};
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            int result = numberOfElementsInIntersection(a, b, n, m);
+            Log.d(TAG, "numberOfElementsInIntersection: " + result);
+        }
+
+        Log.d(TAG, "print2largest: " + print2largest(a,6))   ;
+
+    }
+
+    int print2largest(int arr[], int n) {
+        // code here
+
+        if(arr.length < 2){
+            return -1;
+        }
+
+        int max = arr[0];
+        int secondMax = -1;
+        for(int i = 1; i< arr.length; i++){
+            if(max < arr[i]){
+                secondMax = max;
+                max = arr[i];
+            }
+            else if(max > arr[i]){
+                if(secondMax == -1 || secondMax < arr[i]){
+                    secondMax = arr[i];
+                }
+            }
+        }
+
+        return secondMax;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public int numberOfElementsInIntersection(int a[], int b[], int n, int m) {
+        // Your code here
+
+        int count = 0;
+        int result = 0;
+
+       /* for(int i = 0; i < n; i++){
+
+            for(int j = 0; j < m; j++){
+                if(a[i] == b[j]){
+                    count++;
+                    break;
+                }
+            }
+        }*/
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            if (map.containsKey(a[i])) {
+                map.put(a[i], map.getOrDefault(a[i], 0) + 1);
+            } else {
+                map.put(a[i], count + 1);
+            }
+
+            count = 0;
+        }
+
+
+        for (int j = 0; j < m; j++) {
+            if (map.containsKey(b[j]) && map.getOrDefault(b[j], 0) > 0) {
+                result++;
+                map.put(b[j], map.getOrDefault(b[j], 0) - 1);
+            }
+        }
+
+
+        return result;
     }
 
     private ArrayList<Integer> sumOfArray() {
@@ -649,12 +727,11 @@ public class ArrayActivity extends AppCompatActivity {
 
     }
 
-    public  String reverseWord(String str) {
+    public String reverseWord(String str) {
 
-        if(str.isEmpty()){
+        if (str.isEmpty()) {
             return "";
-        }
-        else{
+        } else {
             char[] chars = str.toCharArray();
 
             int l = 0;
@@ -669,7 +746,7 @@ public class ArrayActivity extends AppCompatActivity {
                 r--;
             }
 
-            Log.d(TAG, "reverseWord: "+ String.valueOf(chars));
+            Log.d(TAG, "reverseWord: " + String.valueOf(chars));
 
             return String.valueOf(chars);
         }

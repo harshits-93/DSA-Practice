@@ -13,53 +13,65 @@
         android:theme="@style/Theme.DSAPractice"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <!-- <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
+            android:name=".String_Activity"
+            android:exported="true" >
 
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>-->
-        </activity>
-
-        <activity
-            android:name=".StringStringbufferJava"
-            android:exported="true">
-
-            <!-- <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
-
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>-->
-        </activity>
-
-        <activity
-            android:name=".Array2DActivity"
-            android:exported="true">
-
-            <!--       <intent-filter>
-                      <action android:name="android.intent.action.MAIN" />
-
-                      <category android:name="android.intent.category.LAUNCHER" />
-                  </intent-filter>-->
-        </activity>
-
-        <activity
-            android:name=".SortingActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".RecursionActivity"
+            android:name=".MainActivity"
             android:exported="true">
 
+            <!--
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
 
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+            -->
         </activity>
+        <activity
+            android:name=".ArrayActivity"
+            android:exported="true">
+    <!--        <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".Array2DActivity"
+            android:exported="true">
+
+            <!--
+                       <intent-filter>
+                      <action android:name="android.intent.action.MAIN" />
+
+                      <category android:name="android.intent.category.LAUNCHER" />
+                  </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".SortingActivity"
+            android:exported="true">
+
+            <!--
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".RecursionActivity"
+            android:exported="true"/>
+
+
     </application>
 
 </manifest>

@@ -21,15 +21,38 @@ public class SortingActivity extends AppCompatActivity {
         //selectionSort(arr);
         //insertionSort(arr);
 
-       // mergeTwoSortedArrays(arr1, arr2);
-        int[] sorted = mergeSort(arr, 0, arr.length - 1);
+        // mergeTwoSortedArrays(arr1, arr2);
+      /*  int[] sorted = mergeSort(arr, 0, arr.length - 1);
         Log.d("TAG", "Merge Sort: " + Arrays.toString(sorted));
+*/
+        String s = "i.like.this.program.very.much";
+        String result = reverseWords(s);
+        Log.d("TAG", "reverseWords: " + result);
 
+    }
+
+    String reverseWords(String S) {
+        // code here
+        String[] split = S.split("\\.");
+        int i = 0;
+        int j = split.length - 1;
+
+        while (i < j) {
+            //swap
+            String temp = split[i];
+            split[i] = split[j];
+            split[j] = temp;
+            i++;
+            j--;
+        }
+
+        //.join method to add dots in b/w reversed array.
+        return String.join(".", split);
     }
 
     void mergeSortAlt(int arr[], int l, int r) {
         /** The base case in the recursion ensures that when the subarray has only one element (i.e., when l == r),
-        the function does nothing and returns immediately. When the base case is met, the recursion
+         the function does nothing and returns immediately. When the base case is met, the recursion
          stops dividing that part of the array further and starts merging back the sorted subarrays.*/
         if (l < r) {
             int mid = (l + r) / 2;
@@ -98,7 +121,7 @@ public class SortingActivity extends AppCompatActivity {
         //Here is l and r are same means only one item left and both pointing to same. So basically
         //we are creating an array of length one, and adding that only element in it and return it.
         //Note e[0] = arr[l] or e[0] = arr[r] both same, since l, r pointing to same place.
-        if(l == r){
+        if (l == r) {
             int[] e = new int[1];
             e[0] = arr[l];
             return e;
@@ -146,6 +169,7 @@ public class SortingActivity extends AppCompatActivity {
 
         return result;
     }
+
     private void insertionSort(int[] arr) {
 
         for (int i = 1; i < arr.length; i++) {
